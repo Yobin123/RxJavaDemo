@@ -36,6 +36,8 @@ public class ElementaryFragment extends BaseFragment  {
     private RecyclerView gridRv;
     private ZhuangbiListAdapter adapter = new ZhuangbiListAdapter();
     private RadioButton searchRb1,searchRb2,searchRb3,searchRb4;
+    private ElementaryFragment fragment;
+
 
     Observer<List<ZhuangbiImage>> observer = new Observer<List<ZhuangbiImage>>() {
         @Override
@@ -121,8 +123,12 @@ public class ElementaryFragment extends BaseFragment  {
         swipeRefreshLayout.setEnabled(false);
     }
 
-
-
+    public ElementaryFragment getInstance(){
+        if(fragment==null){
+            fragment = new ElementaryFragment();
+        }
+        return fragment;
+    }
 
     @Override
     protected int getDialogRes() {

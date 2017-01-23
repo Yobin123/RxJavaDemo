@@ -1,5 +1,7 @@
 package com.yobin.stee.rxjavasimple.network;
 
+import com.yobin.stee.rxjavasimple.network.api.FakeApi;
+import com.yobin.stee.rxjavasimple.network.api.GankApi;
 import com.yobin.stee.rxjavasimple.network.api.ZhuangbiApi;
 
 import okhttp3.OkHttpClient;
@@ -15,7 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Network {
     private static ZhuangbiApi zhuangbiApi;
-
+    private static GankApi gankApi;
+    private static FakeApi fakeApi;
     private static OkHttpClient okHttpClient = new OkHttpClient();
     //gson转换工厂
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
@@ -35,5 +38,23 @@ public class Network {
 
         }
         return zhuangbiApi;
+    }
+    public static GankApi getGankApi(){
+        if (gankApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl("http://gank.io/api/")
+                    .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                    .build();
+            gankApi = retrofit.create(GankApi.class);
+        }
+        return gankApi;
+    }
+    public static FakeApi getFakeApi(){
+        if(fakeApi == null){
+            fakeApi = new FakeApi();
+        }
+        return fakeApi;
     }
 }

@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.yobin.stee.rxjavasimple.module.elmentary_1.ElementaryFragment;
 import com.yobin.stee.rxjavasimple.module.map_2.MapFragment;
+import com.yobin.stee.rxjavasimple.module.token_4.TokenFragment;
+import com.yobin.stee.rxjavasimple.module.zip_3.ZipFragment;
 
 //import android.support.v4.app.FragmentManager;
 
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
                         return new ElementaryFragment();
                     case 1:
                         return new MapFragment();
+                    case 2:
+                        return new ZipFragment();
+                    case 3:
+                        return new TokenFragment();
                     default:
                         return new ElementaryFragment();
                 }
