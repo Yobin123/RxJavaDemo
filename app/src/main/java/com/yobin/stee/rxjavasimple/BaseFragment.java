@@ -1,5 +1,6 @@
 package com.yobin.stee.rxjavasimple;
 
+import android.support.v7.app.AlertDialog;
 import android.widget.Button;
 
 import rx.Subscription;
@@ -37,6 +38,11 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment{
     protected abstract int getDialogRes();
 
     protected abstract int getTitleRes();
-
+    public void showDialog(int titleId,int id){
+        new AlertDialog.Builder(getActivity())
+                    .setTitle(titleId)
+                    .setView(getActivity().getLayoutInflater().inflate(id, null))
+                    .show();
+    }
 
 }

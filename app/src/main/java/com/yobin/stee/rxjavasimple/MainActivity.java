@@ -9,9 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.yobin.stee.rxjavasimple.module.cache_6.CacheFragment;
 import com.yobin.stee.rxjavasimple.module.elmentary_1.ElementaryFragment;
 import com.yobin.stee.rxjavasimple.module.map_2.MapFragment;
 import com.yobin.stee.rxjavasimple.module.token_4.TokenFragment;
+import com.yobin.stee.rxjavasimple.module.token_advanced_5.TokenAdvancedFragment;
 import com.yobin.stee.rxjavasimple.module.zip_3.ZipFragment;
 
 //import android.support.v4.app.FragmentManager;
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
                         return new ZipFragment();
                     case 3:
                         return new TokenFragment();
+                    case 4:
+                        return new TokenAdvancedFragment();
+                    case 5:
+                        return new CacheFragment();
                     default:
                         return new ElementaryFragment();
                 }

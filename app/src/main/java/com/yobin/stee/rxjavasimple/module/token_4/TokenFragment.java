@@ -1,9 +1,9 @@
 package com.yobin.stee.rxjavasimple.module.token_4;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,7 @@ import com.yobin.stee.rxjavasimple.R;
 import com.yobin.stee.rxjavasimple.model.FakeThing;
 import com.yobin.stee.rxjavasimple.model.FakeToken;
 import com.yobin.stee.rxjavasimple.network.Network;
+import com.yobin.stee.rxjavasimple.network.api.FakeApi;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -53,6 +54,7 @@ public class TokenFragment  extends BaseFragment{
                         .setTitle(getTitleRes())
                         .setView(getActivity().getLayoutInflater().inflate(getDialogRes(), null))
                         .show();
+
             }
         });
 
@@ -65,19 +67,22 @@ public class TokenFragment  extends BaseFragment{
     }
 
     private void loadData() {
-        subscription  = Network.getFakeApi()
+        swipeRefreshLayout.setRefreshing(true);
+        unsubscribe();
+        final FakeApi fakeApi = Network.getFakeApi();
+        subscription  = fakeApi //fakeApi
         .getFakeToken("fake_auth_code")
         .flatMap(new Func1<FakeToken, Observable<FakeThing>>() {
             @Override
             public Observable<FakeThing> call(FakeToken fakeToken) {
-                return Network.getFakeApi().getFakeData(fakeToken);
+                return fakeApi.getFakeData(fakeToken);
             }
         }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Action1<FakeThing>() {
             @Override
             public void call(FakeThing fakeData) {
-                 swipeRefreshLayout.setRefreshing(false);
+               swipeRefreshLayout.setRefreshing(false);
                tokenTv.setText(getString(R.string.got_data,fakeData.id,fakeData.name));
             }
         }, new Action1<Throwable>() {
